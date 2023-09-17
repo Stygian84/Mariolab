@@ -56,8 +56,6 @@ public class EnemyController : MonoBehaviour
     {
         if (col.contacts[0].normal.y > 0.5f)
         {
-            // Collision from the top
-            Debug.Log("Collision from the top");
             if (col.gameObject.CompareTag("Player"))
             {
                 enemyBody.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -65,9 +63,7 @@ public class EnemyController : MonoBehaviour
             }
         }
         if (Mathf.Abs(col.contacts[0].normal.y) < 0.2f)
-        {
-            // Collision from the side
-            Debug.Log("Collision from the side");
+        { //collision from side
             if (col.gameObject.CompareTag("Obstacles"))
             {
                 moveRight *= -1;

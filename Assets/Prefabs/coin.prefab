@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4466881993415841489}
   - component: {fileID: 322316750066908342}
   - component: {fileID: -949848639207943922}
-  - component: {fileID: 2908592496727899647}
   - component: {fileID: 813041623507173050}
+  - component: {fileID: 2908592496727899647}
   m_Layer: 0
   m_Name: coin
   m_TagString: Untagged
@@ -136,22 +136,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 5
---- !u!114 &2908592496727899647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2968602732678553190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da7774552b203444a587309482adf1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coinAudioSource: {fileID: 813041623507173050}
-  coinSound: {fileID: 8300000, guid: d885ffc842af744d89f7d595ffcc176a, type: 3}
-  coinImpulse: 7
-  maxLifetime: 0.95
 --- !u!82 &813041623507173050
 AudioSource:
   m_ObjectHideFlags: 0
@@ -170,7 +154,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -248,3 +232,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2908592496727899647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2968602732678553190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da7774552b203444a587309482adf1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinAudioSource: {fileID: 813041623507173050}
+  coinSound: {fileID: 8300000, guid: d885ffc842af744d89f7d595ffcc176a, type: 3}
+  coinImpulse: 7
+  maxLifetime: 0.95
+  delay: 1

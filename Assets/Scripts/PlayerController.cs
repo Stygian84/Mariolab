@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -70,7 +71,7 @@ public class PlayerController : MonoBehaviour
     {
         if (alive)
         {
-                float dirX = Input.GetAxisRaw("Horizontal");
+            float dirX = Input.GetAxisRaw("Horizontal");
             marioBody.velocity = new Vector2(dirX * speed, marioBody.velocity.y);
             if (dirX > 0.01f)
             {
@@ -131,7 +132,6 @@ public class PlayerController : MonoBehaviour
     {
         if (Other.gameObject.CompareTag("Enemy") && alive)
         {
-            Debug.Log("Collided with goomba!");
             marioAnimator.SetTrigger("die");
             bgMusic.enabled = false;
             marioAudioSource.PlayOneShot(marioDeath);
@@ -176,9 +176,15 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Restart!");
         // reset everything
-        ResetGame();
+        // ResetGame();
+        RestartLevel();
         // resume time
         Time.timeScale = 1.0f;
+    }
+
+    private void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void ResetGame()
