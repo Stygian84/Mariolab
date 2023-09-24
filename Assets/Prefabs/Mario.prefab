@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 516281976218073778}
   - component: {fileID: 1647215893941092426}
   - component: {fileID: 6489932531494610667}
+  - component: {fileID: 5217403362930561804}
   - component: {fileID: 5658076730714765056}
   - component: {fileID: 4476868114737177435}
-  - component: {fileID: 5217403362930561804}
   - component: {fileID: 899085858701913519}
   m_Layer: 11
   m_Name: Mario
@@ -184,61 +184,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5658076730714765056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3877060028146860883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a55ca3248de3bf24ba5dbf09e27a2213, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpableGround:
-    serializedVersion: 2
-    m_Bits: 64
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  obstaclesLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  speed: 7
-  wallSlidingSpeed: 2
-  jumpForce: 18
-  maxSpeed: 10
-  marioAudioSource: {fileID: 5217403362930561804}
-  marioDeath: {fileID: 8300000, guid: a643c350e404167498bccc65ef03f96a, type: 3}
-  bgMusic: {fileID: 0}
-  deathImpulse: 7
-  scoreText: {fileID: 0}
-  jumpOverGoomba: {fileID: 4476868114737177435}
-  DeathOverlay: {fileID: 0}
-  finalScoreText: {fileID: 0}
-  RestartButton: {fileID: 0}
-  enemies: {fileID: 0}
-  mainCamera: {fileID: 0}
---- !u!114 &4476868114737177435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3877060028146860883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec99195a80086d845ba5dda21d4c01d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyLocation: {fileID: 0}
-  scoreText: {fileID: 0}
-  boxSize: {x: 1.11, y: 3.1, z: 5}
-  maxDistance: 0
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!82 &5217403362930561804
 AudioSource:
   m_ObjectHideFlags: 0
@@ -335,6 +280,63 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5658076730714765056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877060028146860883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55ca3248de3bf24ba5dbf09e27a2213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainCamera: {fileID: 0}
+  jumpableGround:
+    serializedVersion: 2
+    m_Bits: 64
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  obstaclesLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  speed: 7
+  wallSlidingSpeed: 2
+  jumpForce: 18
+  maxSpeed: 10
+  marioAudioSource: {fileID: 5217403362930561804}
+  marioDeath: {fileID: 8300000, guid: a643c350e404167498bccc65ef03f96a, type: 3}
+  bgMusic: {fileID: 0}
+  deathImpulse: 7
+  scoreText: {fileID: 0}
+  jumpOverGoomba: {fileID: 4476868114737177435}
+  DeathOverlay: {fileID: 0}
+  finalScoreText: {fileID: 0}
+  RestartButton: {fileID: 0}
+  enemies: {fileID: 0}
+  mainCamera: {fileID: 0}
+--- !u!114 &4476868114737177435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877060028146860883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec99195a80086d845ba5dda21d4c01d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  enemyLocation: {fileID: 0}
+  scoreText: {fileID: 0}
+  boxSize: {x: 1.11, y: 3.1, z: 5}
+  maxDistance: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &899085858701913519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,7 +363,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: keyboard
+  m_DefaultControlScheme: 
   m_DefaultActionMap: gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

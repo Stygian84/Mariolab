@@ -29,8 +29,26 @@
                     "id": "fcffb3f4-f86c-42d0-86cf-8ae6dac06fab",
                     "expectedControlType": "Button",
                     "processors": "",
+                    "interactions": "Hold(duration=0.3)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "click",
+                    "type": "Button",
+                    "id": "7003c2c1-ef53-410b-90de-b8879d8aeebf",
+                    "expectedControlType": "Button",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "point",
+                    "type": "Value",
+                    "id": "52ad5e7c-f17d-48bb-ad80-ae86fa7eb3f7",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -73,7 +91,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "keyboard",
+                    "groups": "MarioBros",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -82,23 +100,72 @@
                     "name": "",
                     "id": "e4a8338b-a6cc-43e1-96a8-25c20c6a4582",
                     "path": "<Keyboard>/space",
-                    "interactions": "Hold(duration=0.3)",
+                    "interactions": "",
                     "processors": "",
-                    "groups": "keyboard",
+                    "groups": "MarioBros",
                     "action": "JumpHold",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2271a2ff-dd22-409f-a4b7-de53ba74ee43",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "df8478bc-e306-4a35-bbcb-58af75de0382",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "point",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "13283297-0203-4750-9150-028976cfc8ad",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MarioBros",
+                    "action": "point",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "12809ffc-494d-4d42-997d-c23014e1975e",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MarioBros",
+                    "action": "point",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
     ],
     "controlSchemes": [
         {
-            "name": "keyboard",
-            "bindingGroup": "keyboard",
+            "name": "MarioBros",
+            "bindingGroup": "MarioBros",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 }

@@ -51,8 +51,26 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
                     ""id"": ""fcffb3f4-f86c-42d0-86cf-8ae6dac06fab"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.3)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""click"",
+                    ""type"": ""Button"",
+                    ""id"": ""7003c2c1-ef53-410b-90de-b8879d8aeebf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""point"",
+                    ""type"": ""Value"",
+                    ""id"": ""52ad5e7c-f17d-48bb-ad80-ae86fa7eb3f7"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -95,7 +113,7 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
-                    ""groups"": ""keyboard"",
+                    ""groups"": ""MarioBros"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -104,23 +122,72 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""e4a8338b-a6cc-43e1-96a8-25c20c6a4582"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Hold(duration=0.3)"",
+                    ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""keyboard"",
+                    ""groups"": ""MarioBros"",
                     ""action"": ""JumpHold"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2271a2ff-dd22-409f-a4b7-de53ba74ee43"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""df8478bc-e306-4a35-bbcb-58af75de0382"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""point"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""13283297-0203-4750-9150-028976cfc8ad"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MarioBros"",
+                    ""action"": ""point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""12809ffc-494d-4d42-997d-c23014e1975e"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MarioBros"",
+                    ""action"": ""point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""keyboard"",
-            ""bindingGroup"": ""keyboard"",
+            ""name"": ""MarioBros"",
+            ""bindingGroup"": ""MarioBros"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -133,6 +200,8 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
         m_gameplay_Move = m_gameplay.FindAction("Move", throwIfNotFound: true);
         m_gameplay_Jump = m_gameplay.FindAction("Jump", throwIfNotFound: true);
         m_gameplay_JumpHold = m_gameplay.FindAction("JumpHold", throwIfNotFound: true);
+        m_gameplay_click = m_gameplay.FindAction("click", throwIfNotFound: true);
+        m_gameplay_point = m_gameplay.FindAction("point", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -197,6 +266,8 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_gameplay_Move;
     private readonly InputAction m_gameplay_Jump;
     private readonly InputAction m_gameplay_JumpHold;
+    private readonly InputAction m_gameplay_click;
+    private readonly InputAction m_gameplay_point;
     public struct GameplayActions
     {
         private @MarioActions m_Wrapper;
@@ -204,6 +275,8 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_gameplay_Move;
         public InputAction @Jump => m_Wrapper.m_gameplay_Jump;
         public InputAction @JumpHold => m_Wrapper.m_gameplay_JumpHold;
+        public InputAction @click => m_Wrapper.m_gameplay_click;
+        public InputAction @point => m_Wrapper.m_gameplay_point;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -222,6 +295,12 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
             @JumpHold.started += instance.OnJumpHold;
             @JumpHold.performed += instance.OnJumpHold;
             @JumpHold.canceled += instance.OnJumpHold;
+            @click.started += instance.OnClick;
+            @click.performed += instance.OnClick;
+            @click.canceled += instance.OnClick;
+            @point.started += instance.OnPoint;
+            @point.performed += instance.OnPoint;
+            @point.canceled += instance.OnPoint;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -235,6 +314,12 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
             @JumpHold.started -= instance.OnJumpHold;
             @JumpHold.performed -= instance.OnJumpHold;
             @JumpHold.canceled -= instance.OnJumpHold;
+            @click.started -= instance.OnClick;
+            @click.performed -= instance.OnClick;
+            @click.canceled -= instance.OnClick;
+            @point.started -= instance.OnPoint;
+            @point.performed -= instance.OnPoint;
+            @point.canceled -= instance.OnPoint;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -252,13 +337,13 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
         }
     }
     public GameplayActions @gameplay => new GameplayActions(this);
-    private int m_keyboardSchemeIndex = -1;
-    public InputControlScheme keyboardScheme
+    private int m_MarioBrosSchemeIndex = -1;
+    public InputControlScheme MarioBrosScheme
     {
         get
         {
-            if (m_keyboardSchemeIndex == -1) m_keyboardSchemeIndex = asset.FindControlSchemeIndex("keyboard");
-            return asset.controlSchemes[m_keyboardSchemeIndex];
+            if (m_MarioBrosSchemeIndex == -1) m_MarioBrosSchemeIndex = asset.FindControlSchemeIndex("MarioBros");
+            return asset.controlSchemes[m_MarioBrosSchemeIndex];
         }
     }
     public interface IGameplayActions
@@ -266,5 +351,7 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnJumpHold(InputAction.CallbackContext context);
+        void OnClick(InputAction.CallbackContext context);
+        void OnPoint(InputAction.CallbackContext context);
     }
 }
