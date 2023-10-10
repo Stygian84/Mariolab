@@ -4,10 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Numerics;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerController : MonoBehaviour
 {
     public GameManager gameManager;
+    public GameConstants gameConstants;
 
     [Header("Layer")]
     [SerializeField]
@@ -31,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("RestartConfig")]
     public AudioClip marioDeath;
+    public AudioClip marioPowerUp;
     public AudioSource bgMusic;
     public float deathImpulse = 7;
     public JumpOverGoomba jumpOverGoomba;
@@ -41,10 +46,23 @@ public class PlayerController : MonoBehaviour
     public bool alive = true;
     int collisionLayerMask = (1 << 6) | (1 << 9) | (1 << 10);
     private float dirX;
+    private bool powerup = false;
+    private bool bigMario = false;
+    private float poweruptime = 0f;
+    private Transform marioTransform;
+    private bool invulnerable = false;
+    private float invulnerableTime = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        // Set constants
+        speed = gameConstants.speed;
+        maxSpeed = gameConstants.maxSpeed;
+        deathImpulse = gameConstants.deathImpulse;
+        jumpForce = gameConstants.upSpeed;
+
         // Set to be 30 FPS
         Application.targetFrameRate = 30;
         marioBody = GetComponent<Rigidbody2D>();
@@ -53,6 +71,7 @@ public class PlayerController : MonoBehaviour
         marioAnimator = GetComponent<Animator>();
         marioAudioSource = GetComponent<AudioSource>();
         marioAnimator.SetBool("onGround", onGroundState);
+        marioTransform = GetComponent<Transform>();
     }
 
     // FixedUpdate may be called once per frame. See documentation for details.
@@ -101,10 +120,45 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Update() { }
+    void Update()
+    {
+        if (powerup)
+        {
+            marioBody.constraints = RigidbodyConstraints2D.FreezeAll;
+            poweruptime += Time.deltaTime;
+            if (poweruptime > 0.3f)
+            {
+                marioBody.constraints = RigidbodyConstraints2D.None;
+                marioBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                powerup = false;
+                bigMario = true;
+                poweruptime = 0;
+            }
+        }
+        if (invulnerable)
+        {
+            marioBody.constraints = RigidbodyConstraints2D.FreezeAll;
+            coll.enabled=false;
+            invulnerableTime += Time.deltaTime;
+            if (invulnerableTime > 2f)
+            {
+                marioBody.constraints = RigidbodyConstraints2D.None;
+                marioBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                coll.enabled=true;
+                invulnerable = false;
+                invulnerableTime = 0;
+            }
+        }
+    }
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        if (col.gameObject.CompareTag("Mushroom") && alive && !bigMario)
+        {
+            powerup = true;
+            marioAnimator.SetTrigger("powerup");
+            marioAudioSource.PlayOneShot(marioPowerUp);
+        }
         if (((collisionLayerMask & (1 << col.transform.gameObject.layer)) > 0) & !onGroundState)
             if (col.contacts[0].normal.y > 0.5f)
             {
@@ -116,20 +170,30 @@ public class PlayerController : MonoBehaviour
         {
             if (col.gameObject.CompareTag("Enemy") && alive)
             {
-                marioBody.AddForce(Vector2.up * (jumpForce-2), ForceMode2D.Impulse);
+                marioBody.AddForce(Vector2.up * (jumpForce - 2), ForceMode2D.Impulse);
             }
         }
         else
         {
             if (col.gameObject.CompareTag("Enemy") && alive)
             {
-                marioAnimator.SetTrigger("die");
-                bgMusic.enabled = false;
-                marioAudioSource.PlayOneShot(marioDeath);
-                PlayDeathImpulse();
-                alive = false;
+                if (bigMario)
+                {
+                    marioAnimator.ResetTrigger("powerup");
+                    marioAnimator.SetTrigger("bigdie");
+                    bigMario = false;
+                    invulnerable = true;
+                }
+                if (!bigMario && !invulnerable)
+                {
+                    marioAnimator.SetTrigger("die");
+                    bgMusic.enabled = false;
+                    marioAudioSource.PlayOneShot(marioDeath);
+                    PlayDeathImpulse();
+                    alive = false;
 
-                gameManager.gameOver.Invoke();
+                    gameManager.gameOver.Invoke();
+                }
             }
         }
     }
@@ -171,4 +235,10 @@ public class PlayerController : MonoBehaviour
         // reset camera position
         mainCamera.transform.position = new Vector3(0, 0, -10);
     }
+
+    public void ShiftUp()
+    {
+        marioTransform.Translate(0, 0.5f, 0);
+    }
+
 }

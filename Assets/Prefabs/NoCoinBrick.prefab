@@ -176,7 +176,7 @@ SpringJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -1.1120005, y: 0.52}
+  m_ConnectedAnchor: {x: 4.5299997, y: 0.78}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0.33
@@ -190,9 +190,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1373431129634012637}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b2158853f5f0c142b9d74d3b9c48e12, type: 3}
+  m_Script: {fileID: 11500000, guid: 877af1dd982d03043ab20cc0296abe68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialPosition: {fileID: 2319124974621067511}
+  lives: 1000
+  coin: 0
 --- !u!1 &7715301598711014992
 GameObject:
   m_ObjectHideFlags: 0
