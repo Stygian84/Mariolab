@@ -22,7 +22,7 @@ TagManager:
   - Obstacles
   - Pipes
   - Player
-  - 
+  - Interactive
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: front
+    uniqueID: 3054140907
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

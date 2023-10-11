@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 6665216714649417416}
   - component: {fileID: 582745095218144061}
   - component: {fileID: 3498601796329235474}
-  - component: {fileID: 4326285132897498322}
   - component: {fileID: 2457732318397802958}
   m_Layer: 9
   m_Name: GameObject
@@ -211,27 +210,11 @@ SpringJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 5.5699997, y: 0.52}
+  m_ConnectedAnchor: {x: 5.5699997, y: 0.77999985}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0.33
   m_Frequency: 4
---- !u!114 &4326285132897498322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837626903912301853}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f030def632e50d7478b6e2aa67cd60de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialPosition: {fileID: 6404720310168410250}
-  coinPrefab: {fileID: 2968602732678553190, guid: 3a7cb8eeb75c06843aef5fa890398e92, type: 3}
-  lives: 11111
-  coin: 1
 --- !u!114 &2457732318397802958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,11 +227,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ba89cd6851bf340b045f1c0f7fc80a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialPosition: {fileID: 6404720310168410250}
   coinPrefab: {fileID: 2968602732678553190, guid: 3a7cb8eeb75c06843aef5fa890398e92, type: 3}
+  initialPosition: {fileID: 6404720310168410250}
   lives: 11111
   coin: 1
-  coinObject: {fileID: 2559085198663470616}
 --- !u!1 &3448869527882648527
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +344,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6404720310168410250}
     m_Modifications:
+    - target: {fileID: 813041623507173050, guid: 3a7cb8eeb75c06843aef5fa890398e92, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4363890415029259747, guid: 952dfce488785ea48ace88102df30201, type: 2}
     - target: {fileID: 2968602732678553190, guid: 3a7cb8eeb75c06843aef5fa890398e92, type: 3}
       propertyPath: m_Name
       value: coin
@@ -415,11 +401,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a7cb8eeb75c06843aef5fa890398e92, type: 3}
---- !u!1 &2559085198663470616 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2968602732678553190, guid: 3a7cb8eeb75c06843aef5fa890398e92, type: 3}
-  m_PrefabInstance: {fileID: 770443297998295166}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7582390768939842781 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7172890757040762019, guid: 3a7cb8eeb75c06843aef5fa890398e92, type: 3}

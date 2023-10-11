@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
-public class ActionManager : MonoBehaviour
+public class ActionManager : Singleton<ActionManager>
 {
     public UnityEvent jump;
     public UnityEvent jumpHold;
@@ -76,7 +76,7 @@ public class ActionManager : MonoBehaviour
             Debug.Log($"Point detected: {point}");
         }
     }
-    
+
     // triggered upon performed interaction (default successful press)
     public void OnJump()
     {
@@ -103,7 +103,5 @@ public class ActionManager : MonoBehaviour
     {
         Debug.Log($"OnJumpHold performed with value {value.Get()}");
         // TODO
-
     }
-
 }
