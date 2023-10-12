@@ -35,8 +35,8 @@ public class HUDManager : MonoBehaviour
 
     public void SetScore(int score)
     {
-        ScoreText.GetComponent<TextMeshProUGUI>().text = "Score : " + score.ToString();
-        FinalScoreText.GetComponent<TextMeshProUGUI>().text = "Score : " + score.ToString();
+        ScoreText.GetComponent<TextMeshProUGUI>().text = "Score : " + gameScore.Value.ToString();
+        FinalScoreText.GetComponent<TextMeshProUGUI>().text = "Score : " + gameScore.Value.ToString();
     }
 
     public void GameOver()

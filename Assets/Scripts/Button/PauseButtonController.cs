@@ -10,11 +10,13 @@ public class PauseButtonController : MonoBehaviour, IInteractiveButton
     public Sprite pauseIcon;
     public Sprite playIcon;
     public GameObject pauseOverlay;
+    private AudioSource pauseSource;
     private Image image;
     // Start is called before the first frame update
     void Start()
     {
         image = GetComponent<Image>();
+        pauseSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -27,6 +29,7 @@ public class PauseButtonController : MonoBehaviour, IInteractiveButton
     {
         Time.timeScale = isPaused ? 1.0f : 0.0f;
         isPaused = !isPaused;
+        pauseSource.PlayOneShot(pauseSource.clip);
         if (isPaused)
         {
             image.sprite = playIcon;

@@ -12,6 +12,7 @@ public class NextScene : MonoBehaviour
         {
             Debug.Log("Change scene!");
             SceneManager.LoadSceneAsync(nextSceneName, LoadSceneMode.Single);
+            GameObject.Find("Mario").transform.position = new Vector3(-4.1f, -1.5f, 0.0f);
         }
     }
 }

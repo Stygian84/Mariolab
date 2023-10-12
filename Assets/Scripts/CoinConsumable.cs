@@ -27,7 +27,6 @@ public class CoinConsumable : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            coinAudioSource.PlayOneShot(coinSound);
             gameObject.SetActive(false);
             GameManager.instance.IncreaseScore(1);
         }

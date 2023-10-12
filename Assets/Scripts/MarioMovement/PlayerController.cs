@@ -28,14 +28,16 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer marioSprite;
     private bool faceRightState = true;
 
-    [Header("JumpSound")]
+    [Header("Sound")]
     [SerializeField]
     private AudioSource marioAudioSource;
-
-    [Header("RestartConfig")]
     public AudioClip marioDeath;
     public AudioClip marioPowerUp;
-    public AudioSource bgMusic;
+    public AudioClip marioShrinks;
+    public AudioClip coinSound;
+
+    [Header("RestartConfig")]
+    private AudioSource bgMusic;
     public float deathImpulse = 7;
     public GameObject mainCamera;
 
@@ -43,7 +45,6 @@ public class PlayerController : MonoBehaviour
     [System.NonSerialized]
     public bool alive = true;
     int collisionLayerMask = (1 << 6) | (1 << 9) | (1 << 10);
-    private float dirX;
     private bool powerup = false;
     private bool bigMario = false;
     private float poweruptime = 0f;
@@ -70,9 +71,12 @@ public class PlayerController : MonoBehaviour
         marioAnimator.SetBool("onGround", onGroundState);
         marioTransform = GetComponent<Transform>();
 
+        bgMusic = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
         GameManager.instance.gameRestart.AddListener(GameRestart);
         // subscribe to scene manager scene change
-        SceneManager.activeSceneChanged += SetStartingPosition;
+        //SceneManager.activeSceneChanged += SetStartingPosition;
+        this.transform.position = new Vector3(-4.1f, -1.5f, 0.0f);
+        bgMusic.enabled = true;
     }
 
     // FixedUpdate may be called once per frame. See documentation for details.
@@ -141,19 +145,26 @@ public class PlayerController : MonoBehaviour
             marioBody.constraints = RigidbodyConstraints2D.FreezeAll;
             coll.enabled = false;
             invulnerableTime += Time.deltaTime;
-            if (invulnerableTime > 2f)
+            if (invulnerableTime > 1.2f)
             {
                 marioBody.constraints = RigidbodyConstraints2D.None;
                 marioBody.constraints = RigidbodyConstraints2D.FreezeRotation;
-                coll.enabled = true;
-                invulnerable = false;
-                invulnerableTime = 0;
+                if (invulnerableTime > 2f)
+                {
+                    coll.enabled = true;
+                    invulnerableTime = 0;
+                    invulnerable = false;
+                }
             }
         }
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        if (col.gameObject.CompareTag("Coin") && alive)
+        {
+            marioAudioSource.PlayOneShot(coinSound);
+        }
         if (col.gameObject.CompareTag("Mushroom") && alive && !bigMario)
         {
             powerup = true;
@@ -180,6 +191,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (bigMario)
                 {
+                    marioAudioSource.PlayOneShot(marioShrinks);
                     marioAnimator.ResetTrigger("powerup");
                     marioAnimator.SetTrigger("bigdie");
                     bigMario = false;
@@ -192,6 +204,7 @@ public class PlayerController : MonoBehaviour
                     marioAudioSource.PlayOneShot(marioDeath);
                     PlayDeathImpulse();
                     alive = false;
+                    coll.enabled = false;
 
                     GameManager.instance.gameOver.Invoke();
                 }
@@ -232,9 +245,16 @@ public class PlayerController : MonoBehaviour
         // reset animation
         marioAnimator.SetTrigger("gameRestart");
         alive = true;
+        coll.enabled = true;
+        // reset powerup stats
 
+        powerup = false;
+        bigMario = false;
+        poweruptime = 0f;
+        invulnerable = false;
+        invulnerableTime = 0;
         // reset camera position
-//        mainCamera.transform.position = new Vector3(0, 0, -10);
+        //        mainCamera.transform.position = new Vector3(0, 0, -10);
     }
 
     public void ShiftUp()

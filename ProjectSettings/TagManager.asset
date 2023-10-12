@@ -9,6 +9,7 @@ TagManager:
   - Obstacles
   - Pipe
   - Mushroom
+  - Coin
   layers:
   - Default
   - TransparentFX

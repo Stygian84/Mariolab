@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 656565531797091436}
   m_Layer: 0
   m_Name: coinConsumable
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,7 +146,7 @@ AudioSource:
   m_GameObject: {fileID: 4916840764747467734}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4363890415029259747, guid: 952dfce488785ea48ace88102df30201, type: 2}
   m_audioClip: {fileID: 8300000, guid: d885ffc842af744d89f7d595ffcc176a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

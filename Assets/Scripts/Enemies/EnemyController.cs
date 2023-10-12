@@ -13,7 +13,6 @@ public class EnemyController : MonoBehaviour
     private int moveRight = -1;
     private Vector2 velocity;
     private Animator goombaAnimator;
-    public GameManager gameManager;
 
     private Rigidbody2D enemyBody;
     private BoxCollider2D boxCollider2D;
